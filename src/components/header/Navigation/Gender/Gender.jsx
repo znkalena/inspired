@@ -1,12 +1,9 @@
 import { NavLink } from 'react-router-dom'
 import s from './Gender.module.scss'
 import classNames from 'classnames'
-const list = [
-    {link:'women',title :'Женщины'},
-    {link:'men',title :'Мужчины'}
-]
 
-export const Gender = () => (
+
+export const Gender = ({list}) => (
     <ul className={s.gender}>
 {list.map(item =>(
 <li key={item.link} className={s.item}>
