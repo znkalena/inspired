@@ -37,9 +37,14 @@ export const Footer =() => (
                             <h3 className={s.categorySubtitle}>
                             <NavLink to={item.link}  className={s.link}>{item.title}</NavLink>
                             </h3>
-                            <ul className={s.categorySublist}>
-                            {console.log(item.categories)}
-                                            
+                            <ul className={s.categorySublist}>                            
+                            {item.categories.map(category =>(
+                                <li key={category.link}>
+                                    <NavLink className={s.link} to={`${item.link}/${category.link}`}>
+                                        {category.title}
+                                    </NavLink>
+                                </li>
+                            ))}                    
                             </ul>
                             </li>                        
                         })}
