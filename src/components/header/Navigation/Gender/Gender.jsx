@@ -11,7 +11,7 @@ export const Gender = ({list}) => {
 {list.map(item =>(
 <li key={item.link} className={s.item}>
     <NavLink className={({isActive}) =>
-        classNames(s.link, (isActive  || gender === item.link) && s.linkActive)}
+        classNames(s.link, (isActive  || gender.activeGender === item.link) && s.linkActive)}
         to={item.link}> {item.title}
     </NavLink>
 </li>
