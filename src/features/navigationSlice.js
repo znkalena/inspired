@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import { CATEGORY_URL } from '../Const';
 
 export const fetchNavigation = createAsyncThunk(
-    'navigation/fetcNavigation',
+    'navigation/fetchNavigation',
     async() => {
         const responce = await fetch(CATEGORY_URL);
         const data = await responce.json();
