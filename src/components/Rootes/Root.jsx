@@ -7,7 +7,7 @@ import { Header } from "../header/Header";
 
 export const Root = () =>(
     <>
-        <Header  />
+        <Header />
         <Main>
             <Outlet />
         </Main> 
