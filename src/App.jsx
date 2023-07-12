@@ -6,15 +6,15 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchNavigation } from './features/navigationSlice.js';
 import { fetchColors } from './features/colorSlice.js';
-
+import { ProductPage } from '/src/components/ProductPage/ProductPage';
 
 const router =createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Root />}>
             <Route index element= {<MainPage />}/>
-            <Route path='catalog/:gender/:category?' element= {<MainPage />}/>
-            
-            <Route path='*' element= {<ErrorPage />}/>
+            <Route path="product/:id" element= {<ProductPage/>}/>
+            <Route path="catalog/:gender/:category?" element= {<MainPage />}/>
+            <Route path="*" element= {<ErrorPage />}/>
         </Route>
     )
 )

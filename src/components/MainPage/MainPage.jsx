@@ -1,19 +1,28 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategory, fetchGender } from "../../features/goodsSlice";
 import { useParams } from "react-router-dom";
 import { setActiveGender } from "../../features/navigationSlice";
 import { Goods } from "../Goods/Goods";
+import { Banner } from "../Banner/Banner";
 
 
 export const MainPage =() =>{
     const {gender,category} =useParams();
     const dispatch = useDispatch();
-    
+    const {activeGender,categories,genderList} =useSelector(state =>state.navigation);
+    const genderData = categories[activeGender];
+    const categoryData =genderData?.list.find((item) => item.slug===category);
     
     useEffect(() =>{
-        dispatch(setActiveGender(gender))
-    },[gender,dispatch])
+        if(gender){
+            dispatch(setActiveGender(gender))
+        }else if (genderList[0]){
+            dispatch(setActiveGender(genderList[0]));
+            dispatch(fetchGender(genderList[0]));
+        }
+        
+    },[gender,dispatch,genderList])
     
     useEffect(() => {
         if(gender && category){
@@ -24,12 +33,14 @@ export const MainPage =() =>{
             dispatch(fetchGender(gender)); 
             return;
         }         
-    },[gender,category,dispatch])
-
-    return(
-        <>
-        <div></div>
-        <Goods category={category}/>
-        </>
-        
-)};
+    },[gender,category,dispatch])    
+    
+        return(
+            <>       
+            {!category && <Banner data={genderData?.banner} />}
+            
+            <Goods categoryData={categoryData} />
+            </>            
+    )
+    }
+    

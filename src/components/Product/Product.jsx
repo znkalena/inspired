@@ -4,11 +4,11 @@ import s from './Product.module.scss'
 import { ReactComponent as Like } from '/src/assets/hert.svg'
 import { ColorList } from '../Colorlist/ColorList'
 
-export const Product = ({id,price,description,pic,title,colors}) =>   
+export const Product = ({id,price,pic,title,colors,description}) =>   
     (
     <article className={s.product}>
-        <NavLink to={`product/${id}`} className={s.link}>
-            <img className={s.img} src={`${API_URL}/${pic}`} alt={description} />
+        <NavLink to={`/product/${id}`} className={s.link}>
+            <img className={s.img} src={`${API_URL}/${pic}`} alt={`${title}${description}`} />
             <h3 className={s.title}>{title}</h3>            
         </NavLink>
         <div className={s.row}>
