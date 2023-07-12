@@ -37,7 +37,7 @@ export const MainPage =() =>{
     
         return(
             <>       
-            {!category && <Banner data={genderData?.banner} />}
+            {!category && genderData?.banner && <Banner data={genderData?.banner} />}
             
             <Goods categoryData={categoryData} />
             </>            

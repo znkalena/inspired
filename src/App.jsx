@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchNavigation } from './features/navigationSlice.js';
 import { fetchColors } from './features/colorSlice.js';
-import { ProductPage } from '/src/components/ProductPage/ProductPage';
+import { ProductPage } from './components/ProductPage/productPage.jsx';
+
 
 const router =createBrowserRouter(
     createRoutesFromElements(

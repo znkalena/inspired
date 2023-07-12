@@ -5,8 +5,7 @@ export const fetchNavigation = createAsyncThunk(
     'navigation/fetchNavigation',
     async() => {
         const responce = await fetch(CATEGORY_URL);
-        const data = await responce.json();
-        return data;
+        return await responce.json();
     },
     ) 
 

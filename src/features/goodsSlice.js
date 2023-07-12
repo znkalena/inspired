@@ -1,28 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { GOODS_URL } from "../Const";
+import { API_URL } from "../Const";
 
 export const fetchGender = createAsyncThunk(
     'goods/fetchGender',
     async (gender) =>{
-        const url = new URL(GOODS_URL);
+        const url = new URL(`${API_URL}/api/goods/`);
         url.searchParams.append('gender',gender);
         const responce =await fetch(url);
-        const data = await responce.json();
-        console.log('gender',data)
-        return data;
+        return await responce.json();       
     }
 )
 export const fetchCategory = createAsyncThunk(
     'goods/fetchCategory',
     async (param) =>{
-        const url = new URL(GOODS_URL);
+        const url = new URL(`${API_URL}/api/goods/`);
         for(const key in param){
-            url.searchParams.append(key,param[key]);   
+            url.searchParams.append('key',param[key]);   
         }
         const responce =await fetch(url);
-        const data = await responce.json();
-        console.log('category',data);
-        return data;
+        return await responce.json();
     }
 )
 
@@ -44,7 +40,7 @@ const goodsSlice= createSlice({
         })
         .addCase(fetchGender.fulfilled,(state,action) => {
             state.status = 'success';
-            state.goodsList = action.payload
+            state.goodsList = action.payload;
         })
         .addCase(fetchGender.rejected,(state,action) => {
             state.status = 'failed';
