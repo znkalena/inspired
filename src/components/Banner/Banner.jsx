@@ -19,7 +19,7 @@ export const Banner = ({data}) =>{
     } else if (isLaptop) {
         setBgURL(`${API_URL}/${data?.bg.laptop}`)
     } else {
-        setBgURL(`${API_URL}/${data?.bg.desctop}`)
+        setBgURL(`${API_URL}/${data?.bg.desktop}`)
     } 
 },[isMobile,isTablet,isLaptop,data])
     return(

@@ -1,12 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as LikeSVG } from "../../assets/Heart.svg"
 import s from './btnLikeModule.scss'
 import { addToFavorite, removeFromFavorite } from "../../features/favoritesSlice";
 import classNames from "classnames";
 
-export const BtnLike =({id}) =>{
-    const dispatch =dispatch();
+export const BtnLike =({id}) =>{    
     const isFavorite =useSelector(state => state.favorites.includes(id));
+    const dispatch =useDispatch();
 
     const handleToggleFavorite =() => {
         if(isFavorite){
