@@ -7,15 +7,18 @@ import { useParams } from 'react-router-dom'
 import { API_URL } from '../../Const'
 import classNames from 'classnames'
 import { ColorList } from '../Colorlist/ColorList'
-import { ReactComponent as Like } from '../../assets/hert.svg'
 import { Count } from '../Count/Count'
 import { ProductSize } from '../ProductSize/ProductSize'
+import { Goods } from '../Goods/Goods'
+import { fetchCategory} from '../../features/goodsSlice'
+import { BtnLike } from '../BtnLike/BtnLike'
 
 
 export const ProductPage =() => {
     const dispatch = useDispatch();
     const {id} = useParams();
     const {product} = useSelector(state => state.product);
+    const {gender,category} = product;
     const [count,setCount] = useState(1);
     const [selectedColor,setSelectedColor] = useState('');
     const [selectedSize,setSelectedSize] =useState('');
@@ -41,10 +44,18 @@ useEffect(() => {
     dispatch(fetchProduct(id))
 },[dispatch,id]);
 
+useEffect(() => {
+dispatch(fetchCategory({gender,category,count:4,top:true,exclude:id}))
+},[gender,dispatch,category,id])
+
     return (
+        <>
         <section className={s.card}>
             <Container className={s.conteiner}>
-                <img src={`${API_URL}/${product.pic}`} alt={`${product.title} ${product.description}`} />
+                <img
+                className={s.image} 
+                src={`${API_URL}/${product.pic}`} 
+                alt={`${product.title} ${product.description}`} />
                 <form className={s.content}>
                     <h2 className={s.title}>{product.title}</h2>
                     <p className={s.price}>{product.price}</p>
@@ -75,12 +86,13 @@ useEffect(() => {
                         handleDecrement={handleDecrement}
                         />
                         <button className={s.addCart} type='submit'>В корзину</button>
-                        <button className={s.favorite} type='button'><Like /></button>
-
+                        <BtnLike id={id} className={s.favorite} />
                     </div>
                 </form>
             </Container>
         </section>
+        <Goods title='Вам также может понравиться' />
+        </>
     )
     };
     
