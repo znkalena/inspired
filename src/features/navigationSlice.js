@@ -19,7 +19,7 @@ const navigationSlice = createSlice({
         error:null,
     },
     reducers:{
-        setActiveGender:(state,action) => {
+        setActiveGender(state,action){
             state.activeGender=action.payload;
         }
     },

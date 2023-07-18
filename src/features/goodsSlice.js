@@ -1,23 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_URL } from "../Const";
+import {CATEGORY_URL, GOODS_URL } from "../Const";
 
 export const fetchGender = createAsyncThunk(
     'goods/fetchGender',
     async (gender) =>{
-        const url = new URL(`${API_URL}/api/goods/`);
+        const url = new URL(GOODS_URL);
         url.searchParams.append('gender',gender);
         const responce =await fetch(url);
         return await responce.json();       
     }
 )
 export const fetchCategory = createAsyncThunk(
-    'goods/fetchCategory',
+    "goods/fetchCategory",
     async (param) =>{
-        const url = new URL(`${API_URL}/api/goods/`);
+        const url = new URL(GOODS_URL);
         for(const key in param){
-            url.searchParams.append('key',param[key]);   
+            url.searchParams.append(key,param[key]);   
         }
-        const responce =await fetch(url);
+        const responce =await fetch(url);        
+        return await responce.json();
+    }
+)
+export const fetchAll = createAsyncThunk(
+    "goods/fetchAll",
+    async (param) =>{
+        const url = new URL(GOODS_URL);
+        for(const key in param){
+            url.searchParams.append(key,param[key]);   
+        }
+        url.searchParams.append('count','all');
+        const responce =await fetch(url);        
         return await responce.json();
     }
 )
@@ -32,9 +44,9 @@ const goodsSlice= createSlice({
         totalCount:null,
         error:null,
     },
-    reducer:{
-        setPage: (state,action) => {
-            state.page = action.payload
+    reducers:{
+        setPage(state,action){
+            state.page = action.payload;
         }
     },
     extraReducers:builder => {
@@ -64,6 +76,19 @@ const goodsSlice= createSlice({
         .addCase(fetchCategory.rejected,(state,action) => {
         state.status = 'failed';
         state.goodsList = [];
+        state.error = action.error.message;
+        })
+        .addCase(fetchAll.pending,(state) => {
+            state.status = 'loading'
+        })
+        .addCase(fetchAll.fulfilled,(state,action) => {
+        state.status = 'success';
+        state.goodsList = action.payload;
+        state.pages=0;
+        state.totalCount=null;
+        })
+        .addCase(fetchAll.rejected,(state,action) => {
+        state.status = 'failed';
         state.error = action.error.message;
         })
         }
