@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {CATEGORY_URL, GOODS_URL } from "../Const";
+import {GOODS_URL } from "../Const";
 
 export const fetchGender = createAsyncThunk(
     'goods/fetchGender',
