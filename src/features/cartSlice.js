@@ -12,7 +12,7 @@ const cartSlice =createSlice({
         addToCart(state,action){
         const {id,color,size,count} =action.payload;
         const item = state.cartItems.find(
-            (item) =>item.id=== id && item.color=== color && item.siz=== size
+            (item) =>item.id=== id && item.color=== color && item.size=== size
         );
         if(item){
             item.count =count;
@@ -36,4 +36,4 @@ const cartSlice =createSlice({
 
 
 export const {addToCart,removeFromCart} =cartSlice.actions;
-export default cartSlice.reducer
+export default cartSlice.reducer;

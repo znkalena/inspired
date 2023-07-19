@@ -12,7 +12,7 @@ export const Cart = ({cartItems,goodsList}) =>{
                 {goodsList.length ? 
                 <ul className={s.list}>
                 {cartItems.map(item =>(
-                    <li key={item.id} className={s.item}>
+                    <li key={`${item.id}-${item.color}-${item.size}`} className={s.item}>
                         <CartItem {...item} goodsList={goodsList}/>
                     </li>
                 ))}
