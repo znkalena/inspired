@@ -2,19 +2,24 @@ import { useDispatch, useSelector } from 'react-redux'
 import s from './CartItem.module.scss'
 import { API_URL } from '../../../Const';
 import classNames from 'classnames';
-import { addToCart } from '../../../features/cartSlice';
+import { addToCart, removeFromCart } from '../../../features/cartSlice';
 import { Count } from '../../Count/Count';
 
 export const CartItem = ({id,color,size,count,goodsList}) =>{
     const dispatch =useDispatch();
+
     const handleCountChange =(count) =>{
         dispatch(addToCart({id,color,size,count}))
-    }
+    };
+    const handleRemoveItem =() =>{
+        dispatch(removeFromCart({id,color,size}))
+    };
+    
     const {colorList} = useSelector(state =>state.color);
     const item =goodsList.find(item => item.id===id);
     return(
         <article className={s.item}>
-            <img className={s.image} src={`${API_URL}${item?.pic}`} alt={item?.title} />
+            <img className={s.image} src={`${API_URL}/${item?.pic}`} alt={item?.title} />
             <div className={s.content}>
                 <h3 className={s.title}>{item?.title}</h3>
                 <p className={s.price}>руб{item?.price}</p>
@@ -36,7 +41,11 @@ export const CartItem = ({id,color,size,count,goodsList}) =>{
                     <div className={s.sizeItem}>{size}</div>
                 </div>
             </div>
-            <button className={s.del} aria-label='Удалить товар из корзины'></button>
+            <button
+                className={s.del} 
+                aria-label='Удалить товар из корзины'
+                onClick={handleRemoveItem}
+                ></button>
         <Count
         className={s.count}
         count ={count}

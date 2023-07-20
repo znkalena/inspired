@@ -1,14 +1,10 @@
 import s from './ProductSize.module.scss'
 
-export const ProductSize = ({ 
-    sizes,                   
-    selectedSize,
-    handleSizeChange,
-    }) =>(
+export const ProductSize = ({size,selectedSize,handleSizeChange}) =>(
         <div className={s.size}>
             <p className={s.title}>Размер</p>
             <div className={s.list}>
-            {sizes?.map(size =>{               
+            {size?.map(size =>(               
                     <label className={s.size} key={size}>
                     <input 
                         className={s.input}
@@ -20,7 +16,7 @@ export const ProductSize = ({
                     />
                     <span className={s.check}>{size}</span>
                     </label>               
-            })}
+            ))}
             </div>
         </div>       
     )

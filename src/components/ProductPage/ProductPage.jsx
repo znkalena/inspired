@@ -19,8 +19,9 @@ export const ProductPage =() => {
     const dispatch = useDispatch();
     const {id} = useParams();
     const {product} = useSelector(state => state.product);
-
+    
     const {gender,category,colors} = product;
+    
     const {colorList} = useSelector(state => state.color);
 
     const [count,setCount] = useState(1);
@@ -37,7 +38,7 @@ export const ProductPage =() => {
     };
 
     const handleSizeChange = e =>{
-        setSelectedSize(e.target.value)
+        setSelectedSize(e.target.value);
     }
 
     const handleColorChange = e => {
@@ -84,7 +85,7 @@ setSelectedColor(colorList.find(color => color.id=== colors[0].title))
                         />
                     </div>                
                         <ProductSize 
-                    sizes ={product.size}
+                    size ={product.size}
                     selectedSize ={selectedSize}
                     handleSizeChange ={handleSizeChange}
                     />                   

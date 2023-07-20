@@ -65,10 +65,11 @@ const goodsSlice= createSlice({
             state.error = action.error.message;
         })
         .addCase(fetchCategory.pending,(state) => {
-            state.status = 'loading'
+            state.status = 'loading';
+            state.goodsList = [];
         })
         .addCase(fetchCategory.fulfilled,(state,action) => {
-        state.status = 'success';
+        state.status = 'success';        
         state.goodsList = action.payload.goods;        
         state.pages = action.payload.pages;
         state.totalCount = action.payload.totalCount;
@@ -79,7 +80,8 @@ const goodsSlice= createSlice({
         state.error = action.error.message;
         })
         .addCase(fetchAll.pending,(state) => {
-            state.status = 'loading'
+            state.status = 'loading';
+            
         })
         .addCase(fetchAll.fulfilled,(state,action) => {
         state.status = 'success';

@@ -8,7 +8,7 @@ export const ColorList = ({colors,selectedColor,handleColorChange}) => {
     const {colorList} = useSelector(state => state.color);   
     return handleColorChange ? (
     <div className={s.colorList}>
-        {colors.map((id,i) =>{
+        {colors?.map((id,i) =>{
             const color =colorList.find(color => color.id === id);
             
             return <ColorLabel  
@@ -21,7 +21,7 @@ export const ColorList = ({colors,selectedColor,handleColorChange}) => {
     </div>
     ) :(
         <ul className={s.colorList}>
-        {colors.map((id,i) =>{
+        {colors?.map((id,i) =>{
                 const color =colorList.find(color => color.id === id);
                 return <Color  key={id}  check={!i} color={color?.code} />  
             })                     

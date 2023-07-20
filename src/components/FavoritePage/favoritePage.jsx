@@ -1,3 +1,4 @@
+import s from './FavoritePage.module.scss'
 import { useDispatch, useSelector } from "react-redux"
 import { Goods } from "../Goods/Goods"
 import { useEffect } from "react";
@@ -24,6 +25,9 @@ useEffect(() => {
 },[favorites,dispatch,page])
 
     return(
+        favorites.length ?
         <Goods title='Избранное' />
+        :
+        <h3 className={s.empty}>нет ничего в избранном</h3>
     )   
 }

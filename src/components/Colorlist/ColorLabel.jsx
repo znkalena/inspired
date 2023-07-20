@@ -1,12 +1,7 @@
 import s from './Color.module.scss'
 import { useEffect, useRef } from 'react';
 
-export const ColorLabel =({
-    color,
-    check,
-    selectedColor,
-    handleColorChange,
-    }) => {
+export const ColorLabel =({color,check,selectedColor,handleColorChange}) => {
     const colorRef = useRef(null);
 
     useEffect(() => {

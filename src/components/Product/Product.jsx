@@ -4,7 +4,7 @@ import s from './Product.module.scss'
 import { ColorList } from '../Colorlist/ColorList'
 import { BtnLike } from '../BtnLike/BtnLike'
 
-export const Product = ({id,price,pic,title,colors,description}) =>   
+export const Product = ({id,price,pic,title,colors,description}) =>      
     (
     <article className={s.product}>
         <NavLink to={`/product/${id}`} className={s.link}>
@@ -17,4 +17,5 @@ export const Product = ({id,price,pic,title,colors,description}) =>
         </div> 
         <ColorList colors={colors}/>    
     </article>
-    )
+    );
+    
