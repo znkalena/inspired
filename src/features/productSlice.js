@@ -4,8 +4,8 @@ import { GOODS_URL } from "../Const";
 export const fetchProduct = createAsyncThunk(
     'product/fetchProduct',
     async (id) =>{
-        const responce = await fetch(`${GOODS_URL}/${id}`);        
-        return await responce.json();
+        const response = await fetch(`${GOODS_URL}/${id}`);        
+        return await response.json();
     }
 )
 

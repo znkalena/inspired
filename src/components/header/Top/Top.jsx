@@ -5,15 +5,18 @@ import s from './Top.module.scss'
 import logo from '../../../assets/logo.svg'
 import { NavLink } from 'react-router-dom'
 import { ReactComponent as LikeSVG } from '/src/assets/Heart.svg'
-import { ReactComponent as SearthSVG } from '/src/assets/search.svg'
+import { ReactComponent as SearhSVG } from '/src/assets/search.svg'
 import { ReactComponent as CartSVG } from '/src/assets/cart.svg'
 import classNames from 'classnames'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleSearch } from '../../../features/searchSlice.js'
 
-export const Top =({setOpenSearch,openSearch}) =>{
-    const {countItems} =useSelector(state => state.cart)
+export const Top =() =>{
+    const {countItems} =useSelector(state => state.cart);
+    const dispatch =useDispatch();
+
     const handleOpenSearch =() => {
-        setOpenSearch(!openSearch);
+        dispatch(toggleSearch());
     };
 
     return(
@@ -27,7 +30,7 @@ export const Top =({setOpenSearch,openSearch}) =>{
                 <ul className={s.topNavList}>
                     <li className={s.topItem}>
                         <button className={s.topLink} onClick={handleOpenSearch}>
-                            <SearthSVG />                           
+                            <SearhSVG />                           
                         </button>
                     </li>
                     <li className={s.topItem}>

@@ -6,8 +6,8 @@ export const fetchGender = createAsyncThunk(
     async (gender) =>{
         const url = new URL(GOODS_URL);
         url.searchParams.append('gender',gender);
-        const responce =await fetch(url);
-        return await responce.json();       
+        const response =await fetch(url);
+        return await response.json();       
     }
 )
 export const fetchCategory = createAsyncThunk(
@@ -17,8 +17,8 @@ export const fetchCategory = createAsyncThunk(
         for(const key in param){
             url.searchParams.append(key,param[key]);   
         }
-        const responce =await fetch(url);        
-        return await responce.json();
+        const response =await fetch(url);        
+        return await response.json();
     }
 )
 export const fetchAll = createAsyncThunk(
@@ -29,8 +29,8 @@ export const fetchAll = createAsyncThunk(
             url.searchParams.append(key,param[key]);   
         }
         url.searchParams.append('count','all');
-        const responce =await fetch(url);        
-        return await responce.json();
+        const response =await fetch(url);        
+        return await response.json();
     }
 )
 
