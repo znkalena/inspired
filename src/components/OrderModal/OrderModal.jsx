@@ -57,7 +57,7 @@ export const OrderModal= () => {
                             <li className={s.goodsItem} key={`${item.id}${item.color}${item.size}`}>
                                 <img 
                                 className={s.goodsImg}
-                                src={`${API_URL}${product.pic}`} 
+                                src={`${API_URL}/${product.pic}`} 
                                 alt={product.title}>                                    
                                 </img>
                                 <p className={s.goodsCount}>X{item.count}</p>

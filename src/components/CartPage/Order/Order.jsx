@@ -9,17 +9,153 @@ import * as Yup from 'yup'
 import { useDispatch } from 'react-redux';
 import { sendOrder } from '../../../features/cartSlice';
 
-export const Order = (cartItems) =>{
+export const Order = ({ cartItems }) => {
+    const dispatch = useDispatch();
+    const handleSubmitOrder = (values) => {
+        dispatch(sendOrder({ order: cartItems, values }));
+    };  
+    const validationSchema = Yup.object({
+        fio: Yup.string().required("Заполните ФИО"),
+        address: Yup.string().test(
+        "deliveryTest",
+        "Введите адрес доставки",
+        function (value) {
+            return this.parent.delivery === "delivery" ? !!value : true;
+        }
+        ),
+        phone: Yup.string()
+        .required("Заполните номер телефона")
+        .matches(
+            /^\+\d{1}\(\d{3}\)-\d{3}-\d{4}$/,
+            "Некорректный номер телефона"
+        ),
+        email: Yup.string()
+        .email("Некорректный формат email")
+        .required("Заполните email"),
+        delivery: Yup.string().required("Выберите способ доставки"),
+    });  
+    return (
+        <section>
+        <Container>
+            <h2 className={s.title}>Оформление заказа</h2>  
+            <Formik
+            initialValues={{
+                fio: "",
+                address: "",
+                phone: "",
+                email: "",
+                delivery: "",
+            }}
+            onSubmit={handleSubmitOrder}
+            validationSchema={validationSchema}
+            >
+            <Form className={s.form}>
+                <fieldset className={s.personal}>
+                <label className={s.label}>
+                    <Field
+                    className={s.input}
+                    type="text"
+                    placeholder="ФИО*"
+                    name="fio"
+                    />
+                    <ErrorMessage
+                    className={s.error}
+                    name="fio"
+                    component={"span"}
+                    />
+                </label>  
+                <label className={s.label}>
+                    <Field
+                    className={s.input}
+                    type="text"
+                    placeholder="Адрес доставки"
+                    name="address"
+                    />
+                    <ErrorMessage
+                    className={s.error}
+                    name="address"
+                    component={"span"}
+                    />
+                </label>
+  
+                <label className={s.label}>
+                    <Field
+                    as={PatternFormat}
+                    className={s.input}
+                    format="+7(###)-###-####"
+                    mask="_"
+                    placeholder="Телефон*"
+                    name="phone"
+                    />
+                    <ErrorMessage
+                    className={s.error}
+                    name="phone"
+                    component={"span"}
+                    />
+                </label>  
+                <label className={s.label}>
+                    <Field
+                    className={s.input}
+                    type="email"
+                    placeholder="Email*"
+                    name="email"
+                    />
+                    <ErrorMessage
+                    className={s.error}
+                    name="email"
+                    component={"span"}
+                    />
+                </label>
+                </fieldset>
+                <fieldset className={s.radioList}>
+                <label className={s.radoi}>
+                <Field
+                    className={s.radioInput}
+                    type="radio"
+                    name="delivery"
+                    value="delivery"
+                />
+                <span>Доставка</span>
+                </label>
+                <label className={s.radoi}>
+                <Field
+                    className={s.radioInput}
+                    type="radio"
+                    name="delivery"
+                    value="self"
+                />
+                <span>Самовывоз</span>
+                </label>
+                <ErrorMessage
+                className={s.error}
+                name="delivery"
+                component={"span"}
+                />
+            </fieldset>
+
+            <button className={s.submit} type="submit">
+                Оформить
+            </button>
+            </Form>
+        </Formik>
+        </Container>
+    </section>
+    );
+};
+/*export const Order = (cartItems) =>{
     const dispatch = useDispatch();
 
     const handleSubmitOrder =(values) => {
-        console.log(values);
+        console.log(cartItems,values);        
         dispatch(sendOrder({order:cartItems,values}))
     };
 
     const validationSchema =Yup.object({
-        fio: Yup.string().required('заполните ФИО'),
-        adress: Yup.string().test(
+        fio: Yup.string()
+        .min(2,"минимум 2 буквы")
+        .max(40,"максимум 40 букв")
+        .required('заполните ФИО'),
+        address: Yup.string().test(
             'deliveryTest',
             'Введите адрес дoставки',
             function(value){
@@ -35,10 +171,10 @@ export const Order = (cartItems) =>{
         <section>
             <Container>
                 <h2 className={s.title}>Оформление заказа</h2>
-                <Formik
+                <Formik                
                 initialValues={{
                     fio: '',
-                    adress: '' ,
+                    address: '' ,
                     phone:'',
                     email:'',
                     delivery:'delivery',
@@ -55,7 +191,7 @@ export const Order = (cartItems) =>{
                             placeholder='ФИО*'
                             name ='fio'
                             />
-                            <ErrorMessage className={s.error} name={'fio'} component={'span'} />
+                            <ErrorMessage className={s.error} name='fio' component='span' />
                         </label>
                         <label className={s.label}>
                             <Field
@@ -64,7 +200,7 @@ export const Order = (cartItems) =>{
                             placeholder='Адрес доставки'
                             name ='adress'
                             />
-                            <ErrorMessage className={s.error} name={'adress'} component={'span'} />
+                            <ErrorMessage className={s.error} name='address' component='span' />
                         </label>
                         <label className={s.label}>
                             <Field
@@ -75,16 +211,16 @@ export const Order = (cartItems) =>{
                             placeholder='Телефон'
                             name ='phone'
                             />
-                            <ErrorMessage className={s.error} name={'phone'} component={'span'} />
+                            <ErrorMessage className={s.error} name='phone' component='span' />
                         </label>
                         <label className={s.label}>
                             <Field
                             className={s.input}
                             type="email"
                             placeholder='Email*'
-                            name ='mail'
+                            name ='email'
                             />
-                            <ErrorMessage className={s.error} name={'mail'} component={'span'} />
+                            <ErrorMessage className={s.error} name='mail' component='span' />
                         </label>
                     </fieldset>
                     <fieldset className={s.radioList}>
@@ -106,12 +242,12 @@ export const Order = (cartItems) =>{
                             />
                             <span>самовывоз</span>
                         </label>
-                        <ErrorMessage className={s.error} name={'delivery'} component={'span'} />
+                        <ErrorMessage className={s.error} name='delivery' component='span' />
                     </fieldset>
-                    <button className={s.submit} type='submit' onClick={handleSubmitOrder}>оформить</button>
+                    <button className={s.submit} type='submit'>оформить</button>
                 </Form>               
                 </Formik>
             </Container>
         </section>
     )
-}
+}*/

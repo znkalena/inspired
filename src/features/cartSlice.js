@@ -9,9 +9,7 @@ const response = await fetch(url,{
     method:'POST',
     body:JSON.stringify(data),
 });
-const resp = await response.json();
-console.log(resp);
-return resp;
+return await response.json();
 });
 
 const cartSlice =createSlice({

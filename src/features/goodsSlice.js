@@ -52,7 +52,8 @@ const goodsSlice= createSlice({
     extraReducers:builder => {
         builder
         .addCase(fetchGender.pending,(state) => {
-                state.status = 'loading'
+                state.status = 'loading';
+                state.totalCount=null;
         })
         .addCase(fetchGender.fulfilled,(state,action) => {
             state.status = 'success';
@@ -67,6 +68,7 @@ const goodsSlice= createSlice({
         .addCase(fetchCategory.pending,(state) => {
             state.status = 'loading';
             state.goodsList = [];
+            state.totalCount =null;
         })
         .addCase(fetchCategory.fulfilled,(state,action) => {
         state.status = 'success';        
@@ -81,7 +83,7 @@ const goodsSlice= createSlice({
         })
         .addCase(fetchAll.pending,(state) => {
             state.status = 'loading';
-            
+            state.totalCount= null;
         })
         .addCase(fetchAll.fulfilled,(state,action) => {
         state.status = 'success';
